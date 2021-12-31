@@ -15,7 +15,7 @@ contract EasyThief {
     }
 
     //
-    // CHALLENGE: EXCECUTE PART OF THE EXPLOIT HERE
+    // CHALLENGE: IMPLEMENT PART OF THE EXPLOIT HERE
     //
     fallback() external payable {
         if (address(bank).balance >= msg.value) {
@@ -24,7 +24,7 @@ contract EasyThief {
     }
 
     //
-    // CHALLENGE: EXCECUTE PART OF THE EXPLOIT HERE
+    // CHALLENGE: IMPLEMENT PART OF THE EXPLOIT HERE
     //
     function steal() external payable {
         bank.deposit{value: msg.value}();

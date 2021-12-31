@@ -11,4 +11,7 @@ To run a given challenge to see if you've correctly solved it, you can run
 yarn run <challenge-name>
 ```
 
-
+To run all challenges, run
+```shell
+yarn run all
+```

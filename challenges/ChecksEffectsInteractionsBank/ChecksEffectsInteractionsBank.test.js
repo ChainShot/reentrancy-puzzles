@@ -31,6 +31,10 @@ describe('ChecksEffectsInteractionsBank', function () {
   });
 
   describe('EXPLOIT FIXED', function () {
+    //
+    // TEST THAT EXPLOIT HAS BEEN FIXED - NO NEED TO CHANGE ANYTHING HERE
+    //
+    
     let thiefContract;
     let thiefBeginningBalance;
     let thiefEndingBalance;

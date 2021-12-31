@@ -53,6 +53,10 @@ describe('EasyBank', function () {
     });
 
     it('thief should be able to withdraw more ETH than deposited via a contract', async function () {
+      //
+      // ASSERTING THIEF CAN WITHDRAW MORE ETH THAN DEPOSITED - NO NEED TO CHANGE ANYTHING HERE
+      //
+      
       // not checking exact amounts here due to gas costs offseting precise balances
       expect(thiefEndingBalance.gt(thiefBeginningBalance)).to.be.true;
     });

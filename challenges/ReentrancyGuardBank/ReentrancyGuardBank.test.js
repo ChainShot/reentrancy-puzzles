@@ -31,6 +31,10 @@ describe('ChecksEffectsInteractionsBank', function () {
   });
 
   describe('EXPLOIT FIXED', function () {
+    //
+    // TEST THAT EXPLOIT HAS BEEN FIXED - NO NEED TO CHANGE ANYTHING HERE
+    //
+
     let thiefContract;
     let thiefBeginningBalance;
     let thiefEndingBalance;
@@ -40,10 +44,7 @@ describe('ChecksEffectsInteractionsBank', function () {
     });
 
     before(async function () {
-      const thiefContractFactory = await ethers.getContractFactory(
-        'ReentrancyGuardThief',
-        thief
-      );
+      const thiefContractFactory = await ethers.getContractFactory('ReentrancyGuardThief', thief);
       thiefContract = await thiefContractFactory.deploy(bankContract.address);
       await thiefContract.deployed();
     });

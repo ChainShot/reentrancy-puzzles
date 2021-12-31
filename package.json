@@ -14,7 +14,8 @@
     "easybank": "yarn hardhat test challenges/EasyBank/EasyBank.test.js",
     "checkseffectsinteractionsbank": "yarn hardhat test challenges/ChecksEffectsInteractionsBank/ChecksEffectsInteractionsBank.test.js",
     "reentrancyguardbank": "yarn hardhat test challenges/ReentrancyGuardBank/ReentrancyGuardBank.test.js",
-    "pullpaymentbank": "yarn hardhat test challenges/PullPaymentBank/PullPaymentBank.test.js",
-    "all": "yarn run easybank && yarn run checkseffectsinteractionsbank && yarn run reentrancyguardbank && yarn run pullpaymentbank"
+    "auction": "yarn hardhat test challenges/Auction/Auction.test.js",
+    "pullpaymentauction": "yarn hardhat test challenges/PullPaymentAuction/PullPaymentAuction.test.js",
+    "all": "yarn run easybank && yarn run checkseffectsinteractionsbank && yarn run reentrancyguardbank && yarn run auction && yarn run pullpaymentauction"
   }
 }
