@@ -18,10 +18,10 @@ contract ChecksEffectsInteractionsBank {
 
         require(userBalance > 0, "User balance insufficient for withdrawal");
 
-        userBalances[msg.sender] = 0;
-
         // calls msg.sender's receive() or fallback() function
         (bool success, bytes memory payload) = msg.sender.call{value: userBalance}("");
         require(success, string(payload));
+        
+        userBalances[msg.sender] = 0;
     }
 }

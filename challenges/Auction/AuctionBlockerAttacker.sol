@@ -3,15 +3,13 @@ pragma solidity ^0.8.4;
 
 import "hardhat/console.sol";
 
-import "./EasyBank.sol";
+import "./Auction.sol";
 
-contract EasyThief {
-    address thief;
-    EasyBank bank;
+contract AuctionBlockerAttacker {
+    Auction auction;
 
-    constructor(address bankAddress) {
-        thief = msg.sender;
-        bank = EasyBank(bankAddress);
+    constructor(address auctionAddress) {
+        auction = Auction(auctionAddress);
     }
 
     //
@@ -23,6 +21,6 @@ contract EasyThief {
     //
     // CHALLENGE: IMPLEMENT PART OF THE EXPLOIT HERE
     //
-    function steal() external payable {
+    function blockAuction() external payable {
     }
 }

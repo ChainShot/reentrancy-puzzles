@@ -4,18 +4,7 @@ pragma solidity ^0.8.4;
 import "hardhat/console.sol";
 
 contract ReentrancyGuardBank {
-    //
-    // CHALLENGE: IMPLEMENT THE REENTRANCY GUARD MODIFIER
-    //
-    bool internal locked;
-
-    modifier nonReentrant() {
-        require(!locked, "Reentrant function call not allowed");
-        locked = true;
-        _;
-        locked = false;
-    }
-
+    // CHALLENGE: ADD AND IMPLEMENT A REENTRACY GUARD MODIFIER HERE
 
     mapping (address => uint) private userBalances;
 
@@ -24,9 +13,9 @@ contract ReentrancyGuardBank {
     }
 
     //
-    // CHALLENGE: FIX THE CODE BELOW USING THE REENTRANCY GUARD
+    // CHALLENGE: FIX THE CODE BELOW USING THE IMPLEMENTED REENTRANCY GUARD
     //
-    function withdraw() external nonReentrant {
+    function withdraw() external {
         uint userBalance = userBalances[msg.sender];
 
         require(userBalance > 0, "User balance insufficient for withdrawal");
