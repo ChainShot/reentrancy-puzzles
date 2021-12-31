@@ -3,14 +3,30 @@ pragma solidity ^0.8.4;
 
 import "hardhat/console.sol";
 
-contract EasyBank {
+contract ReentrancyGuardBank {
+    //
+    // CHALLENGE: IMPLEMENT THE REENTRANCY GUARD MODIFIER
+    //
+    bool internal locked;
+
+    modifier nonReentrant() {
+        require(!locked, "Reentrant function call not allowed");
+        locked = true;
+        _;
+        locked = false;
+    }
+
+
     mapping (address => uint) private userBalances;
 
     function deposit() external payable {
         userBalances[msg.sender] += msg.value;
     }
 
-    function withdraw() external {
+    //
+    // CHALLENGE: FIX THE CODE BELOW USING THE REENTRANCY GUARD
+    //
+    function withdraw() external nonReentrant {
         uint userBalance = userBalances[msg.sender];
 
         require(userBalance > 0, "User balance insufficient for withdrawal");

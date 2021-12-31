@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const { ethers, waffle } = require('hardhat');
 
-describe('EasyBank', function () {
+describe('PullPaymentBank', function () {
   const provider = waffle.provider;
 
   const depositAmount = ethers.utils.parseEther('100');
@@ -16,8 +16,8 @@ describe('EasyBank', function () {
 
     [deployer, thief, victim] = await ethers.getSigners();
 
-    const BankContractFactory = await ethers.getContractFactory('EasyBank');
-    bankContract = await BankContractFactory.deploy();
+    const bankContractFactory = await ethers.getContractFactory('PullPaymentBank');
+    bankContract = await bankContractFactory.deploy();
     await bankContract.deployed();
 
     bankContract = await bankContract.connect(victim);
@@ -25,10 +25,12 @@ describe('EasyBank', function () {
     const depositTxn = await bankContract.deposit({ value: depositAmount });
     await depositTxn.wait();
 
-    expect((await provider.getBalance(bankContract.address)).eq(depositAmount)).to.be.true;
+    expect(
+      (await provider.getBalance(bankContract.address)).eq(depositAmount)
+    ).to.be.true;
   });
 
-  describe('EXPLOIT', function() {
+  describe('EXPLOIT FIXED', function () {
     let thiefContract;
     let thiefBeginningBalance;
     let thiefEndingBalance;
@@ -38,23 +40,22 @@ describe('EasyBank', function () {
     });
 
     before(async function () {
-      //
-      // CHALLENGE: SETUP AND EXECUTE THE EXPLOIT HERE
-      //
-      
-      const ThiefContractFactory = await ethers.getContractFactory('EasyThief', thief);
-      thiefContract = await ThiefContractFactory.deploy(bankContract.address);
+      const thiefContractFactory = await ethers.getContractFactory(
+        'PullPaymentThief',
+        thief
+      );
+      thiefContract = await thiefContractFactory.deploy(bankContract.address);
       await thiefContract.deployed();
-
-      const stealTxn = await thiefContract.steal({ value: depositAmount });
-      await stealTxn.wait();
-
-      thiefEndingBalance = await provider.getBalance(thief.address);
     });
 
-    it('thief should be able to withdraw more ETH than deposited via a contract', async function () {
+    it('thief should not be able to withdraw more ETH than deposited via a contract', async function () {
+      await expect(
+        thiefContract.steal({ value: depositAmount })
+      ).to.be.revertedWith('Reentrant function call not allowed');
+
+      thiefEndingBalance = await provider.getBalance(thief.address);
       // not checking exact amounts here due to gas costs offseting precise balances
-      expect(thiefEndingBalance.gt(thiefBeginningBalance)).to.be.true;
+      expect(thiefEndingBalance.lte(thiefBeginningBalance)).to.be.true;
     });
   });
 });
