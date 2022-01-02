@@ -50,9 +50,7 @@ describe('ChecksEffectsInteractionsBank', function () {
     });
 
     it('thief should not be able to withdraw more ETH than deposited via a contract', async function () {
-      await expect(
-        thiefContract.steal({ value: depositAmount })
-      ).to.be.revertedWith('Reentrant function call not allowed');
+      await expect(thiefContract.steal({ value: depositAmount })).to.be.reverted;
 
       thiefEndingBalance = await provider.getBalance(thief.address);
       // not checking exact amounts here due to gas costs offseting precise balances
