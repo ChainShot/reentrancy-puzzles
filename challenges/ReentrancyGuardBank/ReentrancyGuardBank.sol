@@ -10,7 +10,7 @@ contract ReentrancyGuardBank {
     bool internal locked;
 
     modifier nonReentrant() {
-        require(!locked, "Reentrant function call not allowed");
+        require(!locked);
         locked = true;
         _;
         locked = false;

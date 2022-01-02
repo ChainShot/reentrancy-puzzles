@@ -13,7 +13,7 @@ contract Auction {
         if (highestBidder != address(0)) {
             // if this call consistently fails, no one else can bid
             (bool success, bytes memory payload) = highestBidder.call{value: highestBid}("");
-            require(success, string(payload)); // if this call consistently fails, no one else can bid
+            require(success, string(payload));
         }
 
        highestBidder = msg.sender;

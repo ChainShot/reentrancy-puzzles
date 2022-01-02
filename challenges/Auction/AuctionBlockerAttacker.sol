@@ -16,7 +16,7 @@ contract AuctionBlockerAttacker {
     // CHALLENGE: IMPLEMENT PART OF THE EXPLOIT HERE
     //
     fallback() external payable {
-        revert("Bahahaha! Attacker has blocked the auction!");
+        revert("");
     }
 
     //

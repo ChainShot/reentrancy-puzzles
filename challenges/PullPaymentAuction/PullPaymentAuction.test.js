@@ -2,11 +2,10 @@ const { expect } = require('chai');
 const { ethers, waffle } = require('hardhat');
 
 describe('Auction', function () {
-  const provider = waffle.provider;
-
-  const bidderBidAmount = ethers.utils.parseEther('99');
-  const auctionBlockerAttackerBidAmount = ethers.utils.parseEther('100');
-  const postBlockedAuctionBidAmount = ethers.utils.parseEther('101');
+  const bidAmount = ethers.utils.parseEther('0');
+  function nextBidAmount() {
+    return bidAmount.add(1);
+  }
 
   let deployer, attacker, bidder;
   let auctionContract;
@@ -24,10 +23,8 @@ describe('Auction', function () {
 
     auctionContract = await auctionContract.connect(bidder);
 
-    const bidTxn = await auctionContract.bid({ value: bidderBidAmount });
+    const bidTxn = await auctionContract.bid({ value: nextBidAmount() });
     await bidTxn.wait();
-
-    expect((await provider.getBalance(auctionContract.address)).eq(bidderBidAmount)).to.be.true;
   });
 
   describe('EXPLOIT FIXED', function () {
@@ -39,24 +36,23 @@ describe('Auction', function () {
 
     before(async function () {
       const auctionBlockerAttackerContractFactory =
-        await ethers.getContractFactory(
-          'PullPaymentAuctionBlockerAttacker',
-          attacker
-        );
+        await ethers.getContractFactory('PullPaymentAuctionBlockerAttacker', attacker);
       auctionBlockerAttackerContract =
-        await auctionBlockerAttackerContractFactory.deploy(
-          auctionContract.address
-        );
+        await auctionBlockerAttackerContractFactory.deploy(auctionContract.address);
       await auctionBlockerAttackerContract.deployed();
 
       const blockAuctionTxn = await auctionBlockerAttackerContract.blockAuction(
-        { value: auctionBlockerAttackerBidAmount }
+        { value: nextBidAmount() }
       );
       await blockAuctionTxn.wait();
     });
 
     it('attacker should be able to block the auction from receiving new bids', async function () {
-      await expect(auctionContract.bid({ value: postBlockedAuctionBidAmount })).to.not.be.reverted;
+      await expect(auctionContract.bid({ value: nextBidAmount() })).to.not.be.reverted;
+    });
+
+    it('attacker should be able withdraw amount higher than the attacker bid', async function () {
+      await expect(auctionContract.bid({ value: nextBidAmount() })).to.not.be.reverted;
     });
   });
 });
