@@ -15,11 +15,11 @@ contract AuctionBlockerAttacker {
     //
     // CHALLENGE: IMPLEMENT PART OF THE EXPLOIT HERE
     //
-    fallback() external payable {
+    receive() external payable {
     }
 
     //
-    // CHALLENGE: IMPLEMENT PART OF THE EXPLOIT HERE
+    // CHALLENGE: USE THIS FUNCTION TO BE THE HIGHEST BIDDER
     //
     function blockAuction() external payable {
     }

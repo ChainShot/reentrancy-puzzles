@@ -11,11 +11,11 @@
     "hardhat": "^2.8.0"
   },
   "scripts": {
-    "easybank": "yarn hardhat test challenges/EasyBank/EasyBank.test.js",
-    "checkseffectsinteractionsbank": "yarn hardhat test challenges/ChecksEffectsInteractionsBank/ChecksEffectsInteractionsBank.test.js",
-    "reentrancyguardbank": "yarn hardhat test challenges/ReentrancyGuardBank/ReentrancyGuardBank.test.js",
-    "auction": "yarn hardhat test challenges/Auction/Auction.test.js",
-    "pullpaymentauction": "yarn hardhat test challenges/PullPaymentAuction/PullPaymentAuction.test.js",
-    "all": "yarn run easybank && yarn run checkseffectsinteractionsbank && yarn run reentrancyguardbank && yarn run auction && yarn run pullpaymentauction"
+    "easybank": "npx hardhat test challenges/EasyBank/EasyBank.test.js",
+    "checkseffectsinteractionsbank": "npx hardhat test challenges/ChecksEffectsInteractionsBank/ChecksEffectsInteractionsBank.test.js",
+    "reentrancyguardbank": "npx hardhat test challenges/ReentrancyGuardBank/ReentrancyGuardBank.test.js",
+    "auction": "npx hardhat test challenges/Auction/Auction.test.js",
+    "pullpaymentauction": "npx hardhat test challenges/PullPaymentAuction/PullPaymentAuction.test.js",
+    "all": "npm run easybank && npm run checkseffectsinteractionsbank && npm run reentrancyguardbank && npm run auction && npm run pullpaymentauction"
   }
 }
