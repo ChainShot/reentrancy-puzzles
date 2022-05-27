@@ -1,9 +1,7 @@
 const { expect } = require('chai');
-const { ethers, waffle } = require('hardhat');
+const { ethers } = require('hardhat');
 
 describe('Auction', function () {
-  const provider = waffle.provider;
-
   const bidAmount = ethers.utils.parseEther('0');
   function nextBidAmount() {
     return bidAmount.add(1);
@@ -14,7 +12,7 @@ describe('Auction', function () {
 
   before(async function () {
     //
-    // SETUP SCENARIO - NO NEED TO CHANGE ANYTHING HERE
+    // SETUP SCENARIO 
     //
 
     [deployer, attacker, bidder] = await ethers.getSigners();
@@ -34,16 +32,21 @@ describe('Auction', function () {
 
     before(async function () {
       //
-      // CHALLENGE: SETUP AND EXECUTE THE EXPLOIT HERE
+      // THE AUCTION BLOCKER IS DEPLOYED AND BLOCK AUCTION IS CALLED
       //
+      const auctionBlockerAttackerContractFactory = await ethers.getContractFactory('AuctionBlockerAttacker', attacker);
+      auctionBlockerAttackerContract = await auctionBlockerAttackerContractFactory.deploy(auctionContract.address);
+      await auctionBlockerAttackerContract.deployed();
+
+      const blockAuctionTxn = await auctionBlockerAttackerContract.blockAuction({ value: nextBidAmount() });
+      await blockAuctionTxn.wait();
     });
 
     it('attacker should be able to block the auction from receiving new bids', async function () {
       //
-      // ASSERTING AUCTION IS BLOCKED - NO NEED TO CHANGE ANYTHING HERE
+      // ASSERTING AUCTION IS BLOCKED 
       //
-      await expect(auctionContract.bid({ value: nextBidAmount() })).to.be
-        .reverted;
+      await expect(auctionContract.bid({ value: nextBidAmount() })).to.be.reverted;
     });
   });
 });

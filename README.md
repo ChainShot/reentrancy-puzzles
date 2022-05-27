@@ -4,14 +4,14 @@ You can find all the puzzles in the `./challenges` directory. Each challenge wil
 
 Depending on the puzzle, code will need to be written either the Solidity files, the test files or both. The code that needs to be written will be marked with a `// CHALLENGE:` comment, so be sure to look for these places in the challenge files.
 
-To get started, clone this repository and run: `yarn` to install the dependencies.
+To get started, clone this repository and run: `npm i` to install the dependencies.
 
 To run a given challenge to see if you've correctly solved it, you can run
 ```shell
-yarn run <challenge-name>
+npm run <challenge-name>
 ```
 
 To run all challenges, run
 ```shell
-yarn run all
+npm run all
 ```
