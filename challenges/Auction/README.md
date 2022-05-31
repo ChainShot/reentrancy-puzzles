@@ -4,4 +4,4 @@ This auction sends back the ether to the highest bidder after a new highest bidd
 
 **Your task**:
 
-Implement the `blockAuction()` and `fallback()` functions in the `AuctionBlockerAttacker.sol` contract to block the `Auction.sol` contract from receiving any new bids.
+Implement the `blockAuction()` and `receive()` functions in the `AuctionBlockerAttacker.sol` contract to block the `Auction.sol` contract from receiving any new bids.

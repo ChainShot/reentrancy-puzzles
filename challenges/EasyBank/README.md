@@ -6,4 +6,4 @@ The exploit starts at the steal function, where the test cases will make the ini
 
 **Your task**:
 
-Implement the `steal()` and `fallback()` functions in the `EasyThief.sol` contract in preparation to steal money locked in the `EasyBank.sol` contract.
+Implement the `steal()` and `receive()` functions in the `EasyThief.sol` contract in preparation to steal money locked in the `EasyBank.sol` contract.
